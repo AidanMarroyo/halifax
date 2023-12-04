@@ -10,9 +10,9 @@ function Quote() {
 					<div>
 						<p className='relative text-xl sm:text-2xl md:text-3xl md:leading-normal font-medium text-gray-800'>
 							<span className='relative z-10 italic text-gray-800 '>
-								Be the First{' '}
-								<span className='underline text-violet-700'>100</span> to Sign
-								up and Receive a Free Shaker Bottle!
+								First <span className='underline text-violet-700'>100</span>{' '}
+								members to join receive lowest ever rates & a free shaker
+								bottle!
 							</span>
 						</p>
 					</div>
