@@ -1,6 +1,52 @@
-import React from 'react';
-
+'use client';
+import { firestore } from '@/lib/firebase';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import kebabCase from 'lodash.kebabcase';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 function Hero() {
+	const [name, setName] = useState('');
+	const [surname, setSurname] = useState('');
+	const [email, setEmail] = useState('');
+	const [number, setNumber] = useState('');
+	const [employer, setEmployer] = useState('');
+
+	const slug = encodeURI(kebabCase(name));
+
+	const createLead = async (e) => {
+		e.preventDefault();
+
+		const ref = doc(firestore, 'leads', slug);
+		const mailRef = doc(firestore, 'mail', slug);
+		const emails = [
+			'dundason@anytimefitness.com',
+			'stoneycreekon@anytimefitness.com',
+			'south.halifax@anytimefitness.com',
+		];
+		const content = {
+			subject: 'Halifax Anytime Fitness',
+			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their`,
+		};
+
+		let data = {
+			name,
+			surname,
+			email,
+			number,
+			employer,
+			createdAt: serverTimestamp(),
+			updatedAt: serverTimestamp(),
+		};
+
+		const mailData = {
+			to: emails,
+			message: content,
+		};
+		await setDoc(ref, data);
+		await setDoc(mailRef, mailData);
+
+		toast.success('Form Submitted');
+	};
 	return (
 		<>
 			{/* Hero */}
@@ -31,7 +77,7 @@ function Hero() {
 						{/* End Col */}
 						<div>
 							{/* Form */}
-							<form>
+							<form onSubmit={createLead}>
 								<div className='lg:max-w-lg lg:mx-auto lg:me-0 ms-auto'>
 									{/* Card */}
 									<div className='p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-slate-900'>
@@ -50,6 +96,9 @@ function Hero() {
 													<div className='relative'>
 														<input
 															type='text'
+															value={name}
+															onChange={(e) => setName(e.target.value)}
+															required
 															id='hs-hero-signup-form-floating-input-first-name'
 															className='peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2'
 															placeholder='John'
@@ -70,6 +119,9 @@ function Hero() {
 													<div className='relative'>
 														<input
 															type='text'
+															value={surname}
+															onChange={(e) => setSurname(e.target.value)}
+															required
 															id='hs-hero-signup-form-floating-input-last-name'
 															className='peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2'
 															placeholder='Doe'
@@ -90,6 +142,9 @@ function Hero() {
 													<div className='relative'>
 														<input
 															type='email'
+															value={email}
+															onChange={(e) => setEmail(e.target.value)}
+															required
 															id='hs-hero-signup-form-floating-input-email'
 															className='peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2'
 															placeholder='you@email.com'
@@ -110,6 +165,9 @@ function Hero() {
 													<div className='relative'>
 														<input
 															type='text'
+															value={number}
+															onChange={(e) => setNumber(e.target.value)}
+															required
 															id='hs-hero-signup-form-floating-input-phone'
 															className='peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2'
 															placeholder='Your Phone Number'
@@ -130,6 +188,9 @@ function Hero() {
 													<div className='relative'>
 														<input
 															type='text'
+															value={employer}
+															onChange={(e) => setEmployer(e.target.value)}
+															required
 															id='hs-hero-signup-form-floating-input-company-name'
 															className='peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2'
 															placeholder='Preline'
