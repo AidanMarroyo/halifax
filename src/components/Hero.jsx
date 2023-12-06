@@ -19,13 +19,12 @@ function Hero() {
 		const ref = doc(firestore, 'leads', slug);
 		const mailRef = doc(firestore, 'mail', slug);
 		const emails = [
-			'dundason@anytimefitness.com',
-			'stoneycreekon@anytimefitness.com',
-			'south.halifax@anytimefitness.com',
+			'aidanmarroyo@gmail.com',
+			'south.halifax@anytimefitness.ca',
 		];
 		const content = {
-			subject: 'Halifax Anytime Fitness',
-			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their`,
+			subject: 'Halifax Anytime Fitness | Presale Lead',
+			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their employer is: ${employer}`,
 		};
 
 		let data = {
@@ -44,7 +43,11 @@ function Hero() {
 		};
 		await setDoc(ref, data);
 		await setDoc(mailRef, mailData);
-
+		setName('');
+		setSurname('');
+		setEmail('');
+		setNumber('');
+		setEmployer('');
 		toast.success('Form Submitted');
 	};
 	return (
