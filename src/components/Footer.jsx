@@ -9,7 +9,7 @@ function Footer() {
 				<Link href='/' className='link link-hover'>
 					Home
 				</Link>
-				<Link href='/master-list' className='link link-hover'>
+				<Link href='/sign-in' className='link link-hover'>
 					Sign In
 				</Link>
 			</nav>
