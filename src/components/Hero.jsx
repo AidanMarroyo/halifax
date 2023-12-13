@@ -19,8 +19,10 @@ function Hero() {
 
 		const ref = doc(firestore, 'leads', slug);
 		const mailRef = doc(firestore, 'mail', slug);
-		const emails = ['aidanmarroyo@gmail.com'];
-
+		const emails = [
+			'aidanmarroyo@gmail.com',
+			'south.halifax@anytimefitness.ca',
+		];
 		let data = {
 			name,
 			surname,
