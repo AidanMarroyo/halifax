@@ -1,5 +1,5 @@
 'use client';
-import { firestore } from '@/lib/firebase';
+import { firestore, postToJSON } from '@/lib/firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import kebabCase from 'lodash.kebabcase';
 import React, { useState } from 'react';
@@ -10,6 +10,7 @@ function Hero() {
 	const [email, setEmail] = useState('');
 	const [number, setNumber] = useState('');
 	const [employer, setEmployer] = useState('');
+	const [consent, setConsent] = useState(null);
 
 	const slug = encodeURI(kebabCase(name));
 
@@ -18,14 +19,7 @@ function Hero() {
 
 		const ref = doc(firestore, 'leads', slug);
 		const mailRef = doc(firestore, 'mail', slug);
-		const emails = [
-			'aidanmarroyo@gmail.com',
-			'south.halifax@anytimefitness.ca',
-		];
-		const content = {
-			subject: 'Halifax Anytime Fitness | Presale Lead',
-			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their employer is: ${employer}`,
-		};
+		const emails = ['aidanmarroyo@gmail.com'];
 
 		let data = {
 			name,
@@ -35,12 +29,19 @@ function Hero() {
 			employer,
 			createdAt: serverTimestamp(),
 			updatedAt: serverTimestamp(),
+			consent: serverTimestamp(),
+		};
+
+		const content = {
+			subject: 'Halifax Anytime Fitness | Presale Lead',
+			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their employer is: ${employer}. ${name} has agreed to the Guest Waiver & Consent to Contact}`,
 		};
 
 		const mailData = {
 			to: emails,
 			message: content,
 		};
+
 		await setDoc(ref, data);
 		await setDoc(mailRef, mailData);
 		setName('');
@@ -48,6 +49,7 @@ function Hero() {
 		setEmail('');
 		setNumber('');
 		setEmployer('');
+		setConsent(null);
 		toast.success('Form Submitted');
 	};
 	return (
@@ -208,6 +210,83 @@ function Hero() {
 													{/* End Floating Input */}
 												</div>
 												{/* End Input Group */}
+												{/* Radio Input */}
+												<div className='relative mt-4'>
+													<input
+														type='checkbox'
+														id='consent-checkbox'
+														checked={consent}
+														className='peer border-gray-300 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600'
+													/>
+													<label
+														htmlFor='consent-checkbox'
+														className='ml-2 text-sm text-gray-800 dark:text-white'
+													>
+														I acknowledge and accept
+														<button
+															className='underline hover'
+															onClick={() =>
+																document
+																	.getElementById('my_modal_1')
+																	.showModal()
+															}
+														>
+															{' '}
+															Terms & Conditions
+														</button>
+														<dialog id='my_modal_1' className='modal'>
+															<div className='modal-box'>
+																<h3 className='font-bold text-lg'>
+																	Guest Waiver
+																</h3>
+																<p className='py-4'>
+																	It is expressly agreed that all activities and
+																	use of all facilities shall be undertaken by
+																	guest at guest’s sole risk. Anytime Fitness,
+																	LLC, its affiliates, and/or its franchisee(s)
+																	and their authorized designees shall not be
+																	liable for any claims, demands, injuries,
+																	damages, or actions whatsoever to guest or
+																	guest’s property arising out of or connected
+																	with the use of any of the services and
+																	facilities of the club or the grounds on which
+																	the club is located (“Claims”). By signing
+																	below, Guest does hereby expressly forever
+																	release and discharge Anytime Fitness, LLC,
+																	its affiliates, and/or its franchisee which
+																	owns the club, and the franchisee’s partners,
+																	agents and employees, from all such Claims.
+																</p>
+																<h3 className='font-bold text-lg'>
+																	Consent to Contact
+																</h3>
+																<p className='py-4'>
+																	By acknowledging below, I verify this is my
+																	correct mobile phone number and/or email
+																	address and I consent to be contacted by
+																	Anytime Fitness, LLC, its affiliates, and/or
+																	its franchisees and their authorized
+																	designees, through email, telephone, text
+																	message, or by other means, some of which may
+																	be from an automated service, as well as any
+																	other communication described in our Privacy
+																	Policy, which can be found at:
+																	https://www.anytimefitness.com/privacy/. For
+																	mobile messaging, message and data rates apply
+																	and consent is not required to become a
+																	member. I also agree to the Terms and
+																	Conditions and the Privacy Policy.
+																</p>
+																<div className='modal-action'>
+																	{/* if there is a button in form, it will close the modal */}
+																	<button className='btn'>Close</button>
+																</div>
+															</div>
+														</dialog>{' '}
+														including the Liability Waiver/Consent to Contact
+													</label>
+												</div>
+												{/* End Radio Input */}
 											</div>
 											{/* End Grid */}
 

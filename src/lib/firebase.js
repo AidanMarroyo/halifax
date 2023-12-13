@@ -94,7 +94,7 @@ export function postToJSON(doc) {
 
 	return {
 		...data,
-		// createdAt: data?.createdAt.toMillis() || 0,
+		consent: data?.consent.toMillis() || 0,
 		// updatedAt: data?.updatedAt.toMillis() || 0,
 		// coworkers: coworkers.map((coworker) => ({
 		// 	...coworker,
