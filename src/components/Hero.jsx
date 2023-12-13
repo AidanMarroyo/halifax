@@ -34,7 +34,7 @@ function Hero() {
 
 		const content = {
 			subject: 'Halifax Anytime Fitness | Presale Lead',
-			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their employer is: ${employer}. ${name} has agreed to the Guest Waiver & Consent to Contact}`,
+			text: `A lead was made by, ${name} ${surname}. Their contact info is tel: ${number} and email: ${email}. Their employer is: ${employer}. ${name} has agreed to the Guest Waiver & Consent to Contact`,
 		};
 
 		const mailData = {
