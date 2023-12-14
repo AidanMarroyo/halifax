@@ -2,7 +2,7 @@
 import { firestore, postToJSON } from '@/lib/firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import kebabCase from 'lodash.kebabcase';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 function Hero() {
 	const [name, setName] = useState('');
@@ -11,6 +11,7 @@ function Hero() {
 	const [number, setNumber] = useState('');
 	const [employer, setEmployer] = useState('');
 	const [consent, setConsent] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const slug = encodeURI(kebabCase(name));
 
@@ -217,78 +218,85 @@ function Hero() {
 													<input
 														type='checkbox'
 														id='consent-checkbox'
-														checked={consent}
+														checked
+														onChange={() => setIsModalOpen(!isModalOpen)} // Toggle the modal state
 														className='peer border-gray-300 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600'
+														required
 													/>
 													<label
 														htmlFor='consent-checkbox'
 														className='ml-2 text-sm text-gray-800 dark:text-white'
 													>
-														I acknowledge and accept
-														<button
-															className='underline hover'
-															onClick={() =>
-																document
-																	.getElementById('my_modal_1')
-																	.showModal()
-															}
-														>
-															{' '}
+														{' '}
+														I acknowledge and accept the{' '}
+														<span className='hover: cursor-pointer underline'>
 															Terms & Conditions
-														</button>
-														<dialog id='my_modal_1' className='modal'>
-															<div className='modal-box'>
-																<h3 className='font-bold text-lg'>
-																	Guest Waiver
-																</h3>
-																<p className='py-4'>
-																	It is expressly agreed that all activities and
-																	use of all facilities shall be undertaken by
-																	guest at guest’s sole risk. Anytime Fitness,
-																	LLC, its affiliates, and/or its franchisee(s)
-																	and their authorized designees shall not be
-																	liable for any claims, demands, injuries,
-																	damages, or actions whatsoever to guest or
-																	guest’s property arising out of or connected
-																	with the use of any of the services and
-																	facilities of the club or the grounds on which
-																	the club is located (“Claims”). By signing
-																	below, Guest does hereby expressly forever
-																	release and discharge Anytime Fitness, LLC,
-																	its affiliates, and/or its franchisee which
-																	owns the club, and the franchisee’s partners,
-																	agents and employees, from all such Claims.
-																</p>
-																<h3 className='font-bold text-lg'>
-																	Consent to Contact
-																</h3>
-																<p className='py-4'>
-																	By acknowledging below, I verify this is my
-																	correct mobile phone number and/or email
-																	address and I consent to be contacted by
-																	Anytime Fitness, LLC, its affiliates, and/or
-																	its franchisees and their authorized
-																	designees, through email, telephone, text
-																	message, or by other means, some of which may
-																	be from an automated service, as well as any
-																	other communication described in our Privacy
-																	Policy, which can be found at:
-																	https://www.anytimefitness.com/privacy/. For
-																	mobile messaging, message and data rates apply
-																	and consent is not required to become a
-																	member. I also agree to the Terms and
-																	Conditions and the Privacy Policy.
-																</p>
-																<div className='modal-action'>
-																	<form method='dialog'>
-																		<button className='btn'>Close</button>
-																	</form>
-																</div>
-															</div>
-														</dialog>{' '}
+														</span>{' '}
 														including the Liability Waiver/Consent to Contact
 													</label>
 												</div>
+												{/* Modal */}
+												{isModalOpen && (
+													<div className='fixed inset-0 z-50 flex items-center justify-center'>
+														<div
+															className='absolute inset-0 bg-black opacity-50'
+															onClick={() => setIsModalOpen(false)}
+														></div>
+														<div className='relative bg-white p-8 rounded-lg'>
+															{/* Modal content */}
+															<h3 className='font-bold text-lg'>
+																Guest Waiver
+															</h3>
+															<p className='py-4'>
+																It is expressly agreed that all activities and
+																use of all facilities shall be undertaken by
+																guest at guest’s sole risk. Anytime Fitness,
+																LLC, its affiliates, and/or its franchisee(s)
+																and their authorized designees shall not be
+																liable for any claims, demands, injuries,
+																damages, or actions whatsoever to guest or
+																guest’s property arising out of or connected
+																with the use of any of the services and
+																facilities of the club or the grounds on which
+																the club is located (“Claims”). By signing
+																below, Guest does hereby expressly forever
+																release and discharge Anytime Fitness, LLC, its
+																affiliates, and/or its franchisee which owns the
+																club, and the franchisee’s partners, agents and
+																employees, from all such Claims.
+															</p>
+															<h3 className='font-bold text-lg'>
+																Consent to Contact
+															</h3>
+															<p className='py-4'>
+																By acknowledging below, I verify this is my
+																correct mobile phone number and/or email address
+																and I consent to be contacted by Anytime
+																Fitness, LLC, its affiliates, and/or its
+																franchisees and their authorized designees,
+																through email, telephone, text message, or by
+																other means, some of which may be from an
+																automated service, as well as any other
+																communication described in our Privacy Policy,
+																which can be found at:
+																https://www.anytimefitness.com/privacy/. For
+																mobile messaging, message and data rates apply
+																and consent is not required to become a member.
+																I also agree to the Terms and Conditions and the
+																Privacy Policy.
+															</p>
+															<div className='modal-action'>
+																<button
+																	className='btn'
+																	onClick={() => setIsModalOpen(false)}
+																>
+																	Close
+																</button>
+															</div>
+														</div>
+													</div>
+												)}
+												{/* End Modal */}
 												{/* End Radio Input */}
 											</div>
 											{/* End Grid */}
