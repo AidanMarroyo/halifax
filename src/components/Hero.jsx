@@ -217,6 +217,7 @@ function Hero() {
 												<div className='relative mt-4'>
 													<input
 														type='checkbox'
+														value={consent}
 														id='consent-checkbox'
 														checked
 														onChange={() => setIsModalOpen(!isModalOpen)} // Toggle the modal state
