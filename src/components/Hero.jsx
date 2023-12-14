@@ -280,8 +280,9 @@ function Hero() {
 																	Conditions and the Privacy Policy.
 																</p>
 																<div className='modal-action'>
-																	{/* if there is a button in form, it will close the modal */}
-																	<button className='btn'>Close</button>
+																	<form method='dialog'>
+																		<button className='btn'>Close</button>
+																	</form>
 																</div>
 															</div>
 														</dialog>{' '}
