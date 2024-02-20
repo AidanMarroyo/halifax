@@ -2,6 +2,7 @@
 import { firestore, postToJSON } from '@/lib/firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import kebabCase from 'lodash.kebabcase';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 function Hero() {
@@ -64,20 +65,21 @@ function Hero() {
 					<div className='grid items-center md:grid-cols-2 gap-8 lg:gap-12'>
 						<div>
 							<p className='inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-rgb(116, 212, 212) to-rgb(136, 216, 225) text-transparent dark:from-purple-700 dark:to-violet-800'>
-								AF HALIFAX COMING SOON
+								AF HALIFAX NOW OPEN
 							</p>
+
 							{/* Title */}
 							<div className='mt-4 md:mb-12 max-w-2xl'>
 								<h1 className='mb-4 font-moonregular text-gray-800 font-bold text-4xl lg:text-5xl '>
-									Pre-Register Now to be added to our Waitlist for Founding
-									Member Rates!
+									Register Now to be added to our Waitlist for Discounted
+									Membership Rates!
 								</h1>
 								<p className='text-gray-600 dark:text-gray-500'>
-									Unlock special benefits and enjoy unbeatable rates by becoming
-									a founding member! Be among the first to experience
-									state-of-the-art facilities, expert trainers, and a vibrant
-									fitness community. Sign up now and secure your spot for a
-									healthier, happier you.
+									Unlock special benefits and enjoy unbeatable rates by learning
+									more below! Be among the first to experience state-of-the-art
+									facilities, expert trainers, and a vibrant fitness community.
+									Sign up now and secure your spot for a healthier, happier you.
+									We will contact you within 24 hours!
 								</p>
 							</div>
 							{/* End Title */}
@@ -233,7 +235,7 @@ function Hero() {
 														<span className='hover: cursor-pointer underline'>
 															Terms & Conditions
 														</span>{' '}
-														including the Liability Waiver/Consent to Contact
+														of the Consent to Contact
 													</label>
 												</div>
 												{/* Modal */}
@@ -245,27 +247,7 @@ function Hero() {
 														></div>
 														<div className='relative bg-white p-8 rounded-lg'>
 															{/* Modal content */}
-															<h3 className='font-bold text-lg'>
-																Guest Waiver
-															</h3>
-															<p className='py-4'>
-																It is expressly agreed that all activities and
-																use of all facilities shall be undertaken by
-																guest at guest’s sole risk. Anytime Fitness,
-																LLC, its affiliates, and/or its franchisee(s)
-																and their authorized designees shall not be
-																liable for any claims, demands, injuries,
-																damages, or actions whatsoever to guest or
-																guest’s property arising out of or connected
-																with the use of any of the services and
-																facilities of the club or the grounds on which
-																the club is located (“Claims”). By signing
-																below, Guest does hereby expressly forever
-																release and discharge Anytime Fitness, LLC, its
-																affiliates, and/or its franchisee which owns the
-																club, and the franchisee’s partners, agents and
-																employees, from all such Claims.
-															</p>
+
 															<h3 className='font-bold text-lg'>
 																Consent to Contact
 															</h3>

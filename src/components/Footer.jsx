@@ -15,16 +15,24 @@ function Footer() {
 			</nav>
 			<nav>
 				<div className='grid grid-flow-col gap-4'>
-					<a style={{ fontSize: '1.5rem' }}>
+					<a
+						style={{ fontSize: '1.5rem' }}
+						href='https://www.instagram.com/anytimefitnesssouthhalifax/'
+						target='_blank'
+					>
 						<FaInstagram />
 					</a>
-					<a style={{ fontSize: '1.5rem' }}>
+					<a
+						style={{ fontSize: '1.5rem' }}
+						href='https://www.facebook.com/AnytimeFitnessSouthHalifax'
+						target='_blank'
+					>
 						<FaFacebook />
 					</a>
 				</div>
 			</nav>
 			<aside>
-				<p>Copyright © 2023 - All rights reserved by AF Halifax</p>
+				<p>Copyright © 2023 - All rights reserved by AF South Halifax</p>
 			</aside>
 		</footer>
 	);

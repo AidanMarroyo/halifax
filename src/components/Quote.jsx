@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 function Quote() {
@@ -8,11 +9,19 @@ function Quote() {
 				{/* Blockquote */}
 				<blockquote className='text-center lg:mx-auto lg:w-3/5'>
 					<div>
+						<Image
+							src='/images/af.png'
+							alt=''
+							width={300}
+							height={300}
+							className='mx-auto my-[-100px]'
+						/>
+
 						<p className='relative text-xl sm:text-2xl md:text-3xl md:leading-normal font-medium text-gray-800'>
 							<span className='relative z-10 italic text-gray-800 '>
-								First <span className='underline text-violet-700'>100</span>{' '}
-								members to join receive lowest ever rates & a free shaker
-								bottle!
+								Welcome to your NEWEST,{' '}
+								<span className='underline text-violet-700'>CLEANEST,</span>{' '}
+								MOST WELCOMING 24/7/365 gym in Halifax!
 							</span>
 						</p>
 					</div>

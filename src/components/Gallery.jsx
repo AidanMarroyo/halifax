@@ -66,6 +66,7 @@ function Gallery() {
 							alt='Image Description'
 						/>
 					</div>
+
 					{/* End Col */}
 					<div className='col-span-4 md:col-span-3'>
 						<img
